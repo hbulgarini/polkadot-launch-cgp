@@ -1,0 +1,98 @@
+{
+	"relaychain": {
+    "name": "kusama",
+		"bin": "polkadot",
+		"chain": "kusama-local",
+		"nodes": [
+			{
+				"name": "alice",
+				"wsPort": 9900,
+				"port": 30444,
+				"basePath": "/tmp/relay/alice"
+			},
+			{
+				"name": "bob",
+				"wsPort": 9901,
+				"port": 30555,
+				"basePath": "/tmp/relay/bob"
+			},
+      {
+				"name": "charlie",
+				"wsPort": 9902,
+				"port": 30666,
+				"basePath": "/tmp/relay/charlie"
+			},
+      {
+				"name": "dave",
+				"wsPort": 9903,
+				"port": 30777,
+				"basePath": "/tmp/relay/dave"
+			}
+		],
+		"genesis": {
+			"runtime": {
+				"runtime_genesis_config": {
+					"configuration": {
+						"config": {
+							"validation_upgrade_frequency": 1,
+							"validation_upgrade_delay": 1
+						}
+					}
+				}
+			}
+		}
+	},
+	"parachains": [
+		{
+		"name": "statemine",
+		"bin": "polkadot-collator",
+		"chain": "statemine-local",
+		"id":"1000",
+			"nodes": [
+				{
+					"wsPort": 9910,
+					"port": 31200,
+					"name": "alice",
+					"flags": ["--force-authoring", "--", "--execution=wasm"],
+					"basePath": "/tmp/parachains/state/alice"
+				},
+        {
+					"wsPort": 9911,
+					"port": 31201,
+					"name": "bob",
+					"flags": ["--force-authoring", "--", "--execution=wasm"],
+					"basePath": "/tmp/parachains/state/bob"
+				}
+			]
+		},
+    	{
+			"bin": "parachain-collator",
+			"chain": "kusama-community-parachain-2000",
+			"id":"2000",
+			"nodes": [
+        {
+					"wsPort": 9920,
+					"port": 31202,
+					"name": "alice",
+					"flags": ["--force-authoring", "--", "--execution=wasm"],
+					"basePath": "/tmp/parachains/comunity/alice"
+
+				},
+        {
+					"wsPort": 9921,
+					"port": 31203,
+					"name": "bob",
+					"flags": ["--force-authoring", "--", "--execution=wasm"],
+					"basePath": "/tmp/parachains/comunity/bob"
+				}
+			]
+		}
+	],
+	"simpleParachains": [
+	],
+	"hrmpChannels": [
+	],
+	"types": {},
+	"finalization": false
+}
+
